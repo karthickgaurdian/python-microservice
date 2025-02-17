@@ -1,0 +1,114 @@
+[
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "logging",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "logging",
+        "description": "logging",
+        "detail": "logging",
+        "documentation": {}
+    },
+    {
+        "label": "Blueprint",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "jsonify",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "importPath": "app.logger",
+        "description": "app.logger",
+        "isExtraImport": true,
+        "detail": "app.logger",
+        "documentation": {}
+    },
+    {
+        "label": "create_app",
+        "importPath": "app",
+        "description": "app",
+        "isExtraImport": true,
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "Config",
+        "kind": 6,
+        "importPath": "app.config",
+        "description": "app.config",
+        "peekOfCode": "class Config:\n    SECRET_KEY = os.getenv(\"SECRET_KEY\", \"default_secret\")\n    LOG_LEVEL = os.getenv(\"LOG_LEVEL\", \"INFO\")",
+        "detail": "app.config",
+        "documentation": {}
+    },
+    {
+        "label": "setup_logger",
+        "kind": 2,
+        "importPath": "app.logger",
+        "description": "app.logger",
+        "peekOfCode": "def setup_logger():\n    logger = logging.getLogger(\"webhook_logger\")\n    logger.setLevel(logging.INFO)\n    console_handler = logging.StreamHandler()\n    console_handler.setFormatter(logging.Formatter(\"%(asctime)s - %(levelname)s - %(message)s\"))\n    logger.addHandler(console_handler)\n    return logger\nlogger = setup_logger()",
+        "detail": "app.logger",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "kind": 5,
+        "importPath": "app.logger",
+        "description": "app.logger",
+        "peekOfCode": "logger = setup_logger()",
+        "detail": "app.logger",
+        "documentation": {}
+    },
+    {
+        "label": "receive_webhook",
+        "kind": 2,
+        "importPath": "app.webhook_routes",
+        "description": "app.webhook_routes",
+        "peekOfCode": "def receive_webhook():\n    try:\n        data = request.get_json()\n        if not data:\n            return jsonify({\"status\": \"error\", \"message\": \"Invalid JSON\"}), 400\n        logger.info(f\"Received webhook data: {data}\")\n        return jsonify({\"status\": \"success\", \"message\": \"Data received\"}), 200\n    except Exception as e:\n        logger.error(f\"Webhook processing error: {e}\")\n        return jsonify({\"status\": \"error\", \"message\": \"Internal Server Error\"}), 500",
+        "detail": "app.webhook_routes",
+        "documentation": {}
+    },
+    {
+        "label": "webhook_blueprint",
+        "kind": 5,
+        "importPath": "app.webhook_routes",
+        "description": "app.webhook_routes",
+        "peekOfCode": "webhook_blueprint = Blueprint(\"webhook\", __name__)\n@webhook_blueprint.route(\"/webhook\", methods=[\"POST\"])\ndef receive_webhook():\n    try:\n        data = request.get_json()\n        if not data:\n            return jsonify({\"status\": \"error\", \"message\": \"Invalid JSON\"}), 400\n        logger.info(f\"Received webhook data: {data}\")\n        return jsonify({\"status\": \"success\", \"message\": \"Data received\"}), 200\n    except Exception as e:",
+        "detail": "app.webhook_routes",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "run",
+        "description": "run",
+        "peekOfCode": "app = create_app()\nif __name__ == \"__main__\":\n    app.run(host=\"0.0.0.0\", port=8888)",
+        "detail": "run",
+        "documentation": {}
+    }
+]
