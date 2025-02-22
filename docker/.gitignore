@@ -1,4 +1,20 @@
-venv/
+# Python
 __pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+env/
+
+# SQLAlchemy / SQLite
+*.db
+*.sqlite3
+
+# Logs & Temp files
 *.log
-.env
+*.bak
+.DS_Store
+
+# VSCode / PyCharm
+.vscode/
+.idea/
