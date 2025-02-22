@@ -1,61 +1,71 @@
-🚀 Webhook Service
-A lightweight Python FastAPI webhook service that listens for POST requests, logs incoming data, and provides a structured microservice setup.
+Kafka Microservice with SQL Server & Docker
+A microservice with a Kafka producer & consumer, SQLAlchemy ORM for SQL Server, and Docker for deployment.
 
-📌 Features
-✅ Receives POST requests and logs data
-✅ Lightweight & Fast using FastAPI
-✅ Easy to Deploy (can be containerized with Docker)
-✅ Structured Microservice Architecture
+🛠 Features
+✅ Sample Kafka producer & consumer
+✅ ORM-based SQL Server integration
+✅ Dockerized for easy deployment
 
-webhook-service/
-│── app/
-│   ├── main.py            # FastAPI application
-│   ├── config.py          # Configuration settings
-│   ├── logger.py          # Logging setup
-│   ├── routes/
-│   │   ├── webhook.py     # Webhook endpoint
-│   ├── services/
-│   │   ├── processor.py   # Data processing logic
-│── tests/                 # Unit tests
-│── .gitignore             # Ignored files
-│── requirements.txt       # Python dependencies
-│── README.md              # Project documentation
+📜 License: MIT. 🚀
+
+📂 python-microservice/
+│── 📄 Dockerfile
+│── 📄 docker-compose.yml
+│── 📄 requirements.txt
+│── 📄 README.md
+│── 📄 .env  (Environment variables)
+│
+├── 📂 app/
+│   │── 📄 __init__.py
+│   │── 📄 config.py   # Configuration (Kafka, DB settings)
+│   │── 📄 cli.py      # Command-line interface for producer/consumer
+│   │
+│   ├── 📂 models/
+│   │   │── 📄 __init__.py
+│   │   │── 📄 base.py  # SQLAlchemy Base & DB connection
+│   │   │── 📄 sales_event.py  # ORM model for sales events
+│   │
+│   ├── 📂 db/
+│   │   │── 📄 database.py  # SQLAlchemy session management
+│   │
+│   ├── 📂 kafka/
+│   │   │── 📄 __init__.py
+│   │   │── 📄 kafka_producer.py  # Kafka producer logic
+│   │   │── 📄 kafka_consumer.py  # Kafka consumer logic
+│   │
+│   ├── 📂 services/
+│   │   │── 📄 event_service.py  # Business logic for event processing
+│   │
+│   ├── 📂 utils/
+│   │   │── 📄 logger.py  # Logging setup
+│
+└── 📂 tests/
+    │── 📄 test_kafka.py  # Unit tests for Kafka
+    │── 📄 test_db.py  # Unit tests for DB
+
+🔹 Explanation
+config.py → Stores Kafka & SQL Server configs
+models/ → Contains SQLAlchemy ORM models
+db/database.py → Handles DB connections
+kafka_producer.py & kafka_consumer.py → Kafka integration
+services/ → Business logic for processing events
+cli.py → Runs Kafka producer/consumer via CLI
+tests/ → Unit tests for Kafka and DB
+Dockerfile & docker-compose.yml → Docker setup
 
 
-🚀 Getting Started
-🔹 1. Clone the Repository
+🚀 Setup
+1️⃣ Clone & Install Dependencies
+git clone https://github.com/your-repo.git && cd your-repo
+pip install -r requirements.txt
 
-**git clone https://github.com/your-username/webhook-service.git**
-cd webhook-service
+2️⃣ Configure Settings
+Kafka: KAFKA_BROKER, KAFKA_TOPIC in config.py
+Database: Set SQL Server credentials in config.py
 
-🔹 2. Set Up Virtual Environment
-
-**python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -r requirements.txt**
-
-🔹 3. Run the Webhook Service
-
-**uvicorn app.main:app --host 0.0.0.0 --port 8888 --reload**
-Your webhook is now running at http://localhost:8000/webhook.
-
---------📡 Webhook Endpoint---------
-➤ Receive Data (POST)
-
-POST /webhook
-Content-Type: application/json
-
-📩 Example Request
-{
-    "event": "order_placed",
-    "order_id": "12345"
-}
-
-✅ Example Response
-{
-    "status": "success",
-    "message": "Data received"
-}
+3️⃣ Run Services
+Producer: python -m app.cli start-producer
+Consumer: python -m app.cli start-consumer
 
 ---------🐳 (Optional) Run with Docker------
 If your environment supports Docker:
