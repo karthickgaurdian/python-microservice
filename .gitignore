@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+env/
+*venv
+# SQLAlchemy / SQLite
+*.db
+*.sqlite3
+
+# Logs & Temp files
+*.log
+*.bak
+.DS_Store
+
+# VSCode / PyCharm
+.vscode/
+.idea/
